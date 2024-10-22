@@ -4,7 +4,7 @@
 
 from simpa.utils import Tags, Settings
 import simpa as sp
-import numpy as np
+import numpy as np 
 import matplotlib.pyplot as plt
 import os
 from simpa_tests.manual_tests import ManualIntegrationTestClass
