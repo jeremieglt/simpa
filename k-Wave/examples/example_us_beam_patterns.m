@@ -5,7 +5,7 @@
 % Transducer and Simulating Transducer Field Patterns examples. 
 %
 % author: Bradley Treeby
-% date: 27th July 2011
+% date: 27th July 20    11
 % last update: 4th June 2017
 %  
 % This function is part of the k-Wave Toolbox (http://www.k-wave.org)
@@ -177,7 +177,7 @@ if ~USE_STATISTICS
 end
 
 % run the simulation
-sensor_data = kspaceFirstOrder3D(kgrid, medium, transducer, sensor, input_args{:});
+sensor_data = kspaceFirstOrder3DC(kgrid, medium, transducer, sensor, input_args{:});
 
 % =========================================================================
 % COMPUTE THE BEAM PATTERN USING SIMULATION STATISTICS
