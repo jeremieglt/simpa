@@ -85,7 +85,7 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
     general_settings = {
         # These parameters set the general properties of the simulated volume
         Tags.RANDOM_SEED: RANDOM_SEED,
-        Tags.VOLUME_NAME: "CompletePipelineExample_" + str(RANDOM_SEED),
+        Tags.VOLUME_NAME: VOLUME_NAME + str(RANDOM_SEED),
         Tags.SIMULATION_PATH: path_manager.get_hdf5_file_save_path(),
         Tags.SPACING_MM: spacing,
         Tags.DIM_VOLUME_Z_MM: VOLUME_HEIGHT_IN_MM,
@@ -125,7 +125,8 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
         Tags.KWAVE_PROPERTY_PlotPML: False,
         Tags.RECORDMOVIE: False,
         Tags.MOVIENAME: "visualization_log",
-        Tags.ACOUSTIC_LOG_SCALE: True
+        Tags.ACOUSTIC_LOG_SCALE: True,
+        Tags.RECORDMOVIE: True
     })
 
     settings.set_reconstruction_settings({

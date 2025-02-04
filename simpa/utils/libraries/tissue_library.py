@@ -269,7 +269,7 @@ class TissueLibrary(object):
                                                   OpticalTissueProperties.WATER_VOLUME_FRACTION_BONE_STD,
                                                   OpticalTissueProperties.WATER_VOLUME_FRACTION_BONE_MEAN +
                                                   OpticalTissueProperties.WATER_VOLUME_FRACTION_BONE_STD
-                                                  )
+                                                )
 
         # generate the tissue dictionary
         return (MolecularCompositionGenerator()

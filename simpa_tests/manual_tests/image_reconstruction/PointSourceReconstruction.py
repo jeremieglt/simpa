@@ -94,7 +94,6 @@ class PointSourceReconstruction(ReconstructionAlgorithmTestBaseClass):
         # Note: Please make sure that a valid path_config.env file is located in your home directory, or that you
         #  point to the correct file in the PathManager().
         self.path_manager = PathManager()
-
     
         # Seed the numpy random configuration prior to creating the global_settings file in
         # order to ensure that the same volume
@@ -249,53 +248,56 @@ class PointSourceReconstruction(ReconstructionAlgorithmTestBaseClass):
         # device.add_illumination_geometry(PencilBeamIlluminationGeometry())
         # dist.append(self.simulate_and_evaluate_with_device(device))
         
-        dist.append(self.simulate_and_evaluate_with_device(MSOTAcuityEcho(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
-                                                                                                self.VOLUME_PLANAR_DIM_IN_MM/2,
-                                                                                                35]),
-                                                                    field_of_view_extent_mm=np.array([-(2 * np.sin(0.34 / 40 * 128) * 40) / 2,
-                                                                                                    (2 * np.sin(0.34 /
-                                                                                                        40 * 128) * 40) / 2,
-                                                                                                    0, 0, -25, 25]))))
+        # dist.append(self.simulate_and_evaluate_with_device(MSOTAcuityEcho(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
+        #                                                                                         self.VOLUME_PLANAR_DIM_IN_MM/2,
+        #                                                                                         35]),
+        #                                                             field_of_view_extent_mm=np.array([-(2 * np.sin(0.34 / 40 * 128) * 40) / 2,
+        #                                                                                             (2 * np.sin(0.34 /
+        #                                                                                                 40 * 128) * 40) / 2,
+        #                                                                                             0, 0, -25, 25]))))
 
-        dist.append(self.simulate_and_evaluate_with_device(InVision256TF(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
-                                                                                                self.VOLUME_PLANAR_DIM_IN_MM/2,
-                                                                                                self.VOLUME_HEIGHT_IN_MM/2]))))
+        # dist.append(self.simulate_and_evaluate_with_device(InVision256TF(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
+        #                                                                                         self.VOLUME_PLANAR_DIM_IN_MM/2,
+        #                                                                                         self.VOLUME_HEIGHT_IN_MM/2]))))
         device = PhotoacousticDevice(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
                                                                 self.VOLUME_PLANAR_DIM_IN_MM/2,
-                                                                30]),
+                                                                29]),
                                     field_of_view_extent_mm=np.asarray([-self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
                                                                         self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
-                                                                        0, 0, 0, self.VOLUME_HEIGHT_IN_MM]))
+                                                                        0, 0, -30, self.VOLUME_HEIGHT_IN_MM+30]))
         device.set_detection_geometry(LinearArrayDetectionGeometry(device_position_mm=device.device_position_mm,
                                                                 pitch_mm=0.2,
                                                                 number_detector_elements=256))
-        device.add_illumination_geometry(PencilBeamIlluminationGeometry(device_position_mm=device.device_position_mm))
+        device.add_illumination_geometry(PencilBeamIlluminationGeometry())
+        # device.add_illumination_geometry(PencilBeamIlluminationGeometry(device_position_mm=device.device_position_mm))
         dist.append(self.simulate_and_evaluate_with_device(device))
 
         device = PhotoacousticDevice(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
                                                                 self.VOLUME_PLANAR_DIM_IN_MM/2,
-                                                                5]),
-                                    field_of_view_extent_mm=np.asarray([-self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
-                                                                        self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
-                                                                        0, 0, 0, self.VOLUME_HEIGHT_IN_MM]))
+                                                                20]),
+                                    field_of_view_extent_mm=np.asarray([-self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
+                                                                        self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
+                                                                        0, 0, 0, self.VOLUME_HEIGHT_IN_MM])
+                                                                        )
 
         device.set_detection_geometry(LinearArrayDetectionGeometry(device_position_mm=device.device_position_mm,
                                                                 pitch_mm=0.2,
                                                                 number_detector_elements=256))
         device.add_illumination_geometry(PencilBeamIlluminationGeometry())
+        # device.add_illumination_geometry(PencilBeamIlluminationGeometry(device_position_mm=device.device_position_mm))
         dist.append(self.simulate_and_evaluate_with_device(device))
 
-        device = PhotoacousticDevice(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
-                                                                self.VOLUME_PLANAR_DIM_IN_MM/2,
-                                                                10]),
-                                    field_of_view_extent_mm=np.asarray([-self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
-                                                                        self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
-                                                                        0, 0, 0, self.VOLUME_HEIGHT_IN_MM]))
-        device.set_detection_geometry(LinearArrayDetectionGeometry(device_position_mm=device.device_position_mm,
-                                                                pitch_mm=0.2,
-                                                                number_detector_elements=256))
-        device.add_illumination_geometry(PencilBeamIlluminationGeometry())
-        dist.append(self.simulate_and_evaluate_with_device(device))
+        # device = PhotoacousticDevice(device_position_mm=np.array([self.VOLUME_TRANSDUCER_DIM_IN_MM/2,
+        #                                                         self.VOLUME_PLANAR_DIM_IN_MM/2,
+        #                                                         10]),
+        #                             field_of_view_extent_mm=np.asarray([-self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
+        #                                                                 self.VOLUME_TRANSDUCER_DIM_IN_MM / 2,
+        #                                                                 0, 0, 0, self.VOLUME_HEIGHT_IN_MM]))
+        # device.set_detection_geometry(LinearArrayDetectionGeometry(device_position_mm=device.device_position_mm,
+        #                                                         pitch_mm=0.2,
+        #                                                         number_detector_elements=256))
+        # device.add_illumination_geometry(PencilBeamIlluminationGeometry())
+        # dist.append(self.simulate_and_evaluate_with_device(device))
         print("")
         print("Results:")
         print("______________")

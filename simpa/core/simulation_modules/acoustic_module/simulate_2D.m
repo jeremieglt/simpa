@@ -102,7 +102,6 @@ karray = kWaveArray;
 
 elem_pos = data.sensor_element_positions/1000;
 
-
 elem_pos(1, :) = elem_pos(1, :) - 0.5 * kgrid.x_size + dx * GEL_LAYER_HEIGHT;
 elem_pos(2, :) = elem_pos(2, :) - 0.5 * kgrid.y_size;
 
@@ -117,7 +116,6 @@ end
 
 
 % add elements to the array
-
 for ind = 1:num_elements
   x = elem_pos(1, ind);
   y = elem_pos(2, ind);
