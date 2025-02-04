@@ -99,7 +99,7 @@ class OpticalAdapterBase(SimulationModuleBase):
                 wls = self.global_settings[Tags.WAVELENGTHS]
 
                 if len(list_laser_energies) != len(wls):
-                    raise ValueError(f"The wavelength dependant laser energies need to have compatible dimension with the wavelengths.")
+                    raise ValueError("The wavelength dependant laser energies need to have compatible dimension with the wavelengths.")
                 else:
                     laser_energy = laser_energies[wls.index(wl)]
 
@@ -107,7 +107,7 @@ class OpticalAdapterBase(SimulationModuleBase):
                 laser_energy = laser_energies
                 
             else:
-                raise TypeError(f"The laser energies need to be specified as a constant (int, float) or a list if they are 
+                raise TypeError("The laser energies need to be specified as a constant (int, float) or a list if they are \
                                 considered wavelength dependant.")
             
             units = Tags.UNITS_PRESSURE

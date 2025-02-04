@@ -109,7 +109,7 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
         Tags.OPTICAL_MODEL_NUMBER_PHOTONS: 1e7,
         Tags.OPTICAL_MODEL_BINARY_PATH: path_manager.get_mcx_binary_path(),
         Tags.ILLUMINATION_TYPE: Tags.ILLUMINATION_TYPE_MSOT_ACUITY_ECHO,
-        Tags.LASER_PULSE_ENERGY_IN_MILLIJOULE: 50,
+        Tags.LASER_PULSE_ENERGY_IN_MILLIJOULE: [50, 11],
         Tags.MCX_ASSUMED_ANISOTROPY: 0.9,
         Tags.ADDITIONAL_FLAGS: ['--printgpu']  # to print MCX GPU information
     })
