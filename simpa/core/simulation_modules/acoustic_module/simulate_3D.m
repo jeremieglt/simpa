@@ -116,13 +116,13 @@ end
 % For addArcElement orient all elements towards the focus
 % For the iThera MSOT Acuity Echo, it is [0.008, 0]
 
-%focus_pos = [0.008, 0];
+% focus_pos = [0.008, 0];
 
 % add elements to the array
 
-%for ind = 1:num_elements
+% for ind = 1:num_elements
 %    karray.addArcElement(elem_pos(:, ind), radius_of_curv, element_width, focus_pos);
-%end
+% end
 for ind = 1:num_elements
   elem_pos(:, ind) = elem_pos(:, ind) - 0.5*(element_width*sind(orientation_angles(:, ind)));
   karray.addRectElement(elem_pos(:, ind), element_width, 0.0001, euler_angles(ind, :));
