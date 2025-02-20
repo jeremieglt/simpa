@@ -2,7 +2,7 @@
 %%SPDX-FileCopyrightText: 2021 Janek Groehl
 %%SPDX-License-Identifier: MIT
 
-function [] = simulate_3D(optical_path)
+function [] = simulate_3D_modified(optical_path)
 
 %% In case of an error, make sure the matlab scripts exits anyway
 clean_up = onCleanup(@exit);
@@ -95,41 +95,11 @@ end
 
 %% Define sensor
 
-% create empty array
-karray = kWaveArray;
+% Definition of the parameters required for the use of our own sensor
+n_elem = size(data.sensor_element_positions);
 
-elem_pos = data.sensor_element_positions/1000;
-
-elem_pos(1, :) = elem_pos(1, :) - 0.5 * kgrid.x_size + dx * GEL_LAYER_HEIGHT;
-elem_pos(2, :) = elem_pos(2, :) - 0.5 * kgrid.y_size;
-elem_pos(3, :) = elem_pos(3, :) - 0.5 * kgrid.z_size;
-num_elements = size(elem_pos, 2);
-
-element_width = double(settings.detector_element_width_mm)/1000;
-orientation_angles = data.directivity_angle;
-euler_angles = data.intrinsic_euler_angle;
-
-if isfield(settings, 'sensor_radius_mm') == true
-    radius_of_curv = double(settings.sensor_radius_mm)/1000;
-end
-
-% For addArcElement orient all elements towards the focus
-% For the iThera MSOT Acuity Echo, it is [0.008, 0]
-
-% focus_pos = [0.008, 0];
-
-% add elements to the array
-
-% for ind = 1:num_elements
-%    karray.addArcElement(elem_pos(:, ind), radius_of_curv, element_width, focus_pos);
-% end
-for ind = 1:num_elements
-  elem_pos(:, ind) = elem_pos(:, ind) - 0.5*(element_width*sind(orientation_angles(:, ind)));
-  karray.addRectElement(elem_pos(:, ind), element_width, 0.0001, euler_angles(ind, :));
-end
-
-% assign binary mask from karray to the sensor mask
-sensor.mask = karray.getArrayBinaryMask(kgrid);
+% assign binary mask from iThera geometry to the sensor
+[sensor.mask, ~, ~, ~, ~, ~] = ithera_geometry_modified(dx, dx, dx, Nz*dx, Nx, Ny, Nz, n_elem, 125, true);
 
 % model sensor frequency response
 if isfield(settings, 'model_sensor_frequency_response') == true
