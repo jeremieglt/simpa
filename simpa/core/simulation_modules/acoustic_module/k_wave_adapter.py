@@ -241,10 +241,14 @@ class KWaveAdapter(AcousticAdapterBase):
         matlab_binary_path = self.component_settings[Tags.ACOUSTIC_MODEL_BINARY_PATH]
         cmd = generate_matlab_cmd(matlab_binary_path, simulation_script_path, optical_path, self.get_additional_flags())
 
-        cur_dir = os.getcwd()
+        cur_dir = os.getcwd()   
         self.logger.info(cmd)
+
         subprocess.run(cmd)
 
+        # process = subprocess.Popen(cmd)
+        # process.wait()  # wait for Matlab to be closed manually
+        
         raw_time_series_data = sio.loadmat(optical_path)[Tags.DATA_FIELD_TIME_SERIES_DATA]
         time_grid = sio.loadmat(optical_path + "dt.mat")
         num_time_steps = int(np.round(time_grid["number_time_steps"]))

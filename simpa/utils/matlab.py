@@ -29,6 +29,7 @@ def generate_matlab_cmd(matlab_binary_path: str, simulation_script_path: str, da
 
     cmd = list()
     cmd.append(matlab_binary_path)
+
     cmd.append("-nodisplay")
     cmd.append("-nosplash")
     cmd.append("-automation")
@@ -36,4 +37,9 @@ def generate_matlab_cmd(matlab_binary_path: str, simulation_script_path: str, da
     cmd += additional_flags
     cmd.append("-r")
     cmd.append(f"addpath('{base_script_path}');{simulation_script_path}('{data_path}');exit;")
+
+    # cmd.append("-desktop")  # Ouvre MATLAB avec une interface graphique complète
+    # cmd.append("-r")
+    # cmd.append(f"addpath('{base_script_path}'); try, {simulation_script_path}('{data_path}'); catch ME, disp(getReport(ME, 'extended')); disp('Simulation terminée. Appuyez sur une touche pour fermer MATLAB.'); pause; end;")
+    
     return cmd

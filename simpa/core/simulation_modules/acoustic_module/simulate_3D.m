@@ -2,9 +2,10 @@
 %%SPDX-FileCopyrightText: 2021 Janek Groehl
 %%SPDX-License-Identifier: MIT
 
-function [] = simulate_3D_modified(optical_path)
+function [] = simulate_3D(optical_path)
 
 %% In case of an error, make sure the matlab scripts exits anyway
+
 clean_up = onCleanup(@exit);
 
 %% Read settings file
@@ -25,19 +26,15 @@ end
 
 %% Define kWaveGrid
 
-% add 2 pixel "gel" to reduce Fourier artifact
-GEL_LAYER_HEIGHT = 3;
-
-%source.p0 = padarray(source.p0, [GEL_LAYER_HEIGHT 0], 0, 'pre');
 [Nx, Ny, Nz] = size(source.p0);
 if isfield(settings, 'sample') == true
     if settings.sample == true
         dx = double(settings.voxel_spacing_mm)/(double(settings.upscale_factor) * 1000);
     else
-        dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
+        dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
     end
 else
-    dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
+    dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
 end
 kgrid = kWaveGrid(Nx, dx, Ny, dx, Nz, dx);
 
@@ -96,12 +93,13 @@ end
 %% Define sensor
 
 % Definition of the parameters required for the use of our own sensor
-n_elem = size(data.sensor_element_positions);
+size_sensor_elem_pos = size(data.sensor_element_positions);
+n_elem = size_sensor_elem_pos(2);
 
-% assign binary mask from iThera geometry to the sensor
-[sensor.mask, ~, ~, ~, ~, ~] = ithera_geometry_modified(dx, dx, dx, Nz*dx, Nx, Ny, Nz, n_elem, 125, true);
+% Assign binary mask from iThera geometry to the sensor
+[sensor.mask, sensor_value, ~, ~, ~, ~] = ithera_geometry(dx, dx, dx, Ny*dx, Nx, Ny, Nz, n_elem, 125, true);
 
-% model sensor frequency response
+% Model sensor frequency response
 if isfield(settings, 'model_sensor_frequency_response') == true
     if settings.model_sensor_frequency_response == true
         center_freq = double(settings.sensor_center_frequency); % [Hz]
@@ -125,17 +123,50 @@ input_args = {'DataCast', datacast, 'PMLInside', settings.pml_inside, ...
               'Smooth', p0_smoothing};
 
 if settings.gpu == true
-    time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
-    time_series_data = gather(time_series_data);
+    point_time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
+    point_time_series_data = gather(point_time_series_data);
 else
-    time_series_data = kspaceFirstOrder3D(kgrid, medium, source, sensor, input_args{:});
+    point_time_series_data = kspaceFirstOrder3D(kgrid, medium, source, sensor, input_args{:});
 end
 
-% combine data to give one trace per physical array element
-time_series_data = karray.combineSensorData(kgrid, time_series_data);
+%% Manual calculations on sinograms due to the addition of a handmade sensor
+
+% Number of time samples acquired for each point
+temporal_dim = size(point_time_series_data, 2);
+
+% Finding the indexes of the physical points for each element
+sensor_points = cell(n_elem, 1); 
+% the found indexs are stored in a cell, because the number of points found per element varies 
+
+for sensor_idx = 1:n_elem
+    found_idxs = find(sensor_value == sensor_idx);
+    sensor_points{sensor_idx} = found_idxs';
+end
+
+max_length = max(cellfun(@length, sensor_points));
+% filling the array with zeros to have a unique line width
+sensor_points_padded = cellfun(@(x) [x, zeros(1, max_length - length(x))], sensor_points, 'UniformOutput', false); 
+% transforming to matrix for processing
+sensor_points_mat = cell2mat(sensor_points_padded');
+% renumbering the sensors to correspond to time series data
+[~, ~, sensor_points_renum_vec] = unique(sensor_points_mat(:), 'sorted'); 
+% accounting for the artificial numerotation of the 0s in the numerotation
+sensor_points_renum_vec = sensor_points_renum_vec - 1;
+% reshaping and retransforming to a cell
+sensor_points_reshaped = reshape(sensor_points_renum_vec, max_length, n_elem)'; 
+sensor_points_cell = arrayfun(@(i) nonzeros(sensor_points_reshaped(i, :))', (1:n_elem)', 'UniformOutput', false);
+
+% Filling time series data
+time_series_data = zeros(n_elem, temporal_dim);
+for sensor_idx = 1:n_elem
+    sensor_pts = sensor_points_cell{sensor_idx}';
+    sensor_signals = point_time_series_data(sensor_pts(:, 1), :);
+    % the values for one element are the average values of the points of this element
+    time_series_data(sensor_idx, :) = mean(sensor_signals, 1);
+end
 
 %% Write data to mat array
-save(optical_path, 'time_series_data')%, '-v7.3')
+save(optical_path, 'time_series_data') %, '-v7.3')
 time_step = kgrid.dt;
 number_time_steps = kgrid.Nt;
 save(strcat(optical_path, 'dt.mat'), 'time_step', 'number_time_steps');
