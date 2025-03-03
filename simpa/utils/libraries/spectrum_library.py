@@ -64,6 +64,7 @@ class Spectrum(SerializableSIMPAClass, object):
         """
         Retrieves the interpolated value for a given wavelength within the spectrum range.
 
+
         :param wavelength: the wavelength to retrieve a value from the defined spectrum.
                            Must be an integer value between the minimum and maximum wavelength.
         :return: the best matching linearly interpolated values for the given wavelength.

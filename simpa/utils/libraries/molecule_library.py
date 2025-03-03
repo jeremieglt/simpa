@@ -304,7 +304,7 @@ class MoleculeLibrary(object):
     """
     # Main absorbers
     @staticmethod
-    def water(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def water(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a water molecule with predefined properties.
 
@@ -324,7 +324,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def oxyhemoglobin(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def oxyhemoglobin(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create an oxyhemoglobin molecule with predefined properties.
 
@@ -343,7 +343,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def deoxyhemoglobin(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def deoxyhemoglobin(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a deoxyhemoglobin molecule with predefined properties.
 
@@ -362,7 +362,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def melanin(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def melanin(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a melanin molecule with predefined properties.
 
@@ -382,7 +382,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def fat(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def fat(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a fat molecule with predefined properties.
 
@@ -403,7 +403,7 @@ class MoleculeLibrary(object):
     # Scatterers
     @staticmethod
     def constant_scatterer(scattering_coefficient: float = 100.0, anisotropy: float = 0.9,
-                           volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+                           volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a constant scatterer molecule with predefined properties.
 
@@ -424,7 +424,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def soft_tissue_scatterer(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def soft_tissue_scatterer(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a soft tissue scatterer molecule with predefined properties.
 
@@ -443,7 +443,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def muscle_scatterer(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def muscle_scatterer(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a muscle scatterer molecule with predefined properties.
 
@@ -462,7 +462,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def epidermal_scatterer(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def epidermal_scatterer(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create an epidermal scatterer molecule with predefined properties.
 
@@ -482,7 +482,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def dermal_scatterer(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def dermal_scatterer(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a dermal scatterer molecule with predefined properties.
 
@@ -503,7 +503,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def bone(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def bone(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a bone molecule with predefined properties.
 
@@ -523,7 +523,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def mediprene(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def mediprene(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a mediprene molecule with predefined properties.
 
@@ -542,7 +542,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def heavy_water(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def heavy_water(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create a heavy water molecule with predefined properties.
 
@@ -563,7 +563,7 @@ class MoleculeLibrary(object):
                         )
 
     @staticmethod
-    def air(volume_fraction: float | torch.Tensor = 1.0) -> Molecule:
+    def air(volume_fraction: (float, torch.Tensor) = 1.0) -> Molecule:
         """
         Create an air molecule with predefined properties.
 
@@ -582,6 +582,7 @@ class MoleculeLibrary(object):
                         speed_of_sound=StandardProperties.SPEED_OF_SOUND_AIR,
                         alpha_coefficient=StandardProperties.ALPHA_COEFF_AIR
                         )
+
 
 MOLECULE_LIBRARY = MoleculeLibrary()
 

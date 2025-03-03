@@ -374,8 +374,7 @@ class Tags:
     LASER_PULSE_ENERGY_IN_MILLIJOULE = ("laser_pulse_energy_in_millijoule", (int, np.integer, float, list,
                                                                              range, tuple, np.ndarray))
     """
-    Laser pulse energy used in the optical simulation. If it is considered wavelength dependant, should be
-    an iterable compatible with the size of the wavelength list. \n
+    Laser pulse energy used in the optical simulation.\n
     Usage: module optical_simulation_module
     """
 
@@ -869,7 +868,7 @@ class Tags:
     Optical scattering (NOT REDUCED SCATTERING mus'! mus'=mus*(1-g) ) of the generated volume/structure in 1/cm.\n
     Usage: SIMPA package, naming convention
     """
-    
+
     DATA_FIELD_ANISOTROPY = "g"
     """
     Optical scattering anisotropy of the generated volume/structure.\n

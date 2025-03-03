@@ -109,9 +109,7 @@ class VesselStructure(GeometricalStructure):
             direction = step_vector / torch.linalg.norm(step_vector)
             samples += 1
 
-            # IDEA : adding position and radius arrays to vessel dictionary for the first wavelength only
-
-        return position_array, radius_array # IDEA : sending nothing
+        return position_array, radius_array
 
     def get_enclosed_indices(self):
         start_mm, radius_mm, direction_mm, bifurcation_length_mm, curvature_factor, \
@@ -130,7 +128,6 @@ class VesselStructure(GeometricalStructure):
                                                                      radius_variation_factor,
                                                                      self.volume_dimensions_voxels,
                                                                      curvature_factor)
-        # loading these arrays instead of recalculating them
 
         # creates open grid like np.ogrid
         x = torch.arange(self.volume_dimensions_voxels[0], device=self.torch_device)[:, None, None]
