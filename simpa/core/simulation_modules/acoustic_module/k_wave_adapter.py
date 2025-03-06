@@ -76,6 +76,7 @@ class KWaveAdapter(AcousticAdapterBase):
 
         """
 
+        print("HELLOOOOOOOOO")
         wavelength = self.global_settings[Tags.WAVELENGTH]
         optical_path = generate_dict_path(Tags.OPTICAL_MODEL_OUTPUT_NAME,
                                           wavelength=wavelength)
@@ -187,9 +188,11 @@ class KWaveAdapter(AcousticAdapterBase):
             z_angles = np.arccos(np.dot(orientations, np.array([0, 0, 1]))) * 360 / (2*np.pi)
             intrinsic_euler_angles = list()
             for orientation_vector in orientations:
-
-                mat = rotation_matrix_between_vectors(orientation_vector, np.array([0, 0, 1]))
-                rot = Rotation.from_matrix(mat)
+                
+                # mat = rotation_matrix_between_vectors(orientation_vector, np.array([0, 0, 1]))
+                mat = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+                # rot = Rotation.from_matrix(mat)
+                rot = 1
                 euler_angles = rot.as_euler("XYZ", degrees=True)
                 intrinsic_euler_angles.append(euler_angles)
             intrinsic_euler_angles.reverse()

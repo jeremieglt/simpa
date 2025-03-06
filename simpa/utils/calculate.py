@@ -230,8 +230,8 @@ def rotation_matrix_between_vectors(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """
     a_norm, b_norm = (a / np.linalg.norm(a)).reshape(3), (b / np.linalg.norm(b)).reshape(3)
     cross_product = np.cross(a_norm, b_norm)
-    if np.abs(cross_product.all()) < 1e-10:
-        return np.zeros([3, 3])
+    # if np.abs(cross_product) < 1e-10: # if np.abs(cross_product.all()) < 1e-10:
+    #     return np.zeros([3, 3])
     dot_product = np.dot(a_norm, b_norm)
     s = np.linalg.norm(cross_product)
     mat = np.array([[0, -cross_product[2], cross_product[1]],
