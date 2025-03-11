@@ -5,10 +5,6 @@
 function [] = simulate_3D(optical_path)
 
 %% In case of an error, make sure the matlab scripts exits anyway
-<<<<<<< HEAD
-=======
-
->>>>>>> try_new_sensor
 clean_up = onCleanup(@exit);
 
 %% Read settings file
@@ -29,34 +25,18 @@ end
 
 %% Define kWaveGrid
 
-<<<<<<< HEAD
-% add 2 pixel "gel" to reduce Fourier artifact
-GEL_LAYER_HEIGHT = 3;
-
-%source.p0 = padarray(source.p0, [GEL_LAYER_HEIGHT 0], 0, 'pre');
-[Nx, Ny, Nz] = size(source.p0);
-=======
 [Nx, Ny, Nz] = size(source.p0);
 
->>>>>>> try_new_sensor
 if isfield(settings, 'sample') == true
     if settings.sample == true
         dx = double(settings.voxel_spacing_mm)/(double(settings.upscale_factor) * 1000);
     else
-<<<<<<< HEAD
-        dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
-    end
-else
-    dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
-end
-=======
         dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
     end
 else
     dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
 end
 
->>>>>>> try_new_sensor
 kgrid = kWaveGrid(Nx, dx, Ny, dx, Nz, dx);
 
 %% Define medium
@@ -64,28 +44,15 @@ kgrid = kWaveGrid(Nx, dx, Ny, dx, Nz, dx);
 % if a field of the struct "data" is given which describes the sound speed, the array is loaded and is used as medium.sound_speed
 if isfield(data, 'sos') == true
     medium.sound_speed = data.sos;
-<<<<<<< HEAD
-    % add 2 pixel "gel" to reduce Fourier artifact
-%    medium.sound_speed = padarray(medium.sound_speed, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
-=======
->>>>>>> try_new_sensor
 else
     medium.sound_speed = 1540;
 end
 
 % if a field of the struct "data" is given which describes the attenuation, the array is loaded and is used as medium.alpha_coeff
 if isfield(data, 'alpha_coeff') == true
-<<<<<<< HEAD
- medium.alpha_coeff = data.alpha_coeff;
- % add 2 pixel "gel" to reduce Fourier artifact
-% medium.alpha_coeff = padarray(medium.alpha_coeff, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
-else
- medium.alpha_coeff = 0.01;
-=======
     medium.alpha_coeff = data.alpha_coeff;
 else
     medium.alpha_coeff = 0.01;
->>>>>>> try_new_sensor
 end
 
 medium.alpha_power = double(settings.medium_alpha_power); % b for a * MHz ^ b
@@ -94,11 +61,6 @@ medium.alpha_mode = 'no_dispersion';
 % if a field of the struct "data" is given which describes the density, the array is loaded and is used as medium.density
 if isfield(data, 'density') == true
     medium.density = data.density;
-<<<<<<< HEAD
-    % add 2 pixel "gel" to reduce Fourier artifact
-%    medium.density = padarray(medium.density, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
-=======
->>>>>>> try_new_sensor
 else
     medium.density = 1000*ones(Nx, Ny, Nz);
 end
@@ -125,45 +87,6 @@ end
 
 %% Define sensor
 
-<<<<<<< HEAD
-% create empty array
-karray = kWaveArray;
-
-elem_pos = data.sensor_element_positions/1000;
-
-elem_pos(1, :) = elem_pos(1, :) - 0.5 * kgrid.x_size + dx * GEL_LAYER_HEIGHT;
-elem_pos(2, :) = elem_pos(2, :) - 0.5 * kgrid.y_size;
-elem_pos(3, :) = elem_pos(3, :) - 0.5 * kgrid.z_size;
-num_elements = size(elem_pos, 2);
-
-element_width = double(settings.detector_element_width_mm)/1000;
-orientation_angles = data.directivity_angle;
-euler_angles = data.intrinsic_euler_angle;
-
-if isfield(settings, 'sensor_radius_mm') == true
-    radius_of_curv = double(settings.sensor_radius_mm)/1000;
-end
-
-% For addArcElement orient all elements towards the focus
-% For the iThera MSOT Acuity Echo, it is [0.008, 0]
-
-%focus_pos = [0.008, 0];
-
-% add elements to the array
-
-%for ind = 1:num_elements
-%    karray.addArcElement(elem_pos(:, ind), radius_of_curv, element_width, focus_pos);
-%end
-for ind = 1:num_elements
-  elem_pos(:, ind) = elem_pos(:, ind) - 0.5*(element_width*sind(orientation_angles(:, ind)));
-  karray.addRectElement(elem_pos(:, ind), element_width, 0.0001, euler_angles(ind, :));
-end
-
-% assign binary mask from karray to the sensor mask
-sensor.mask = karray.getArrayBinaryMask(kgrid);
-
-% model sensor frequency response
-=======
 % Definition of the parameters required for the use of our own sensor
 elem_pos = data.sensor_element_positions * 1e-3;
 
@@ -184,7 +107,6 @@ grid_3D = true;
 [sensor.mask, sensor_value, ~, ~, ~, ~] = ithera_geometry(dx, dx, dx, Ny*dx, Nx, Ny, Nz, n_elem, angular_coverage, center_of_rotation, grid_3D);
 
 % Model sensor frequency response
->>>>>>> try_new_sensor
 if isfield(settings, 'model_sensor_frequency_response') == true
     if settings.model_sensor_frequency_response == true
         center_freq = double(settings.sensor_center_frequency); % [Hz]
@@ -208,19 +130,6 @@ input_args = {'DataCast', datacast, 'PMLInside', settings.pml_inside, ...
               'Smooth', p0_smoothing};
 
 if settings.gpu == true
-<<<<<<< HEAD
-    time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
-    time_series_data = gather(time_series_data);
-else
-    time_series_data = kspaceFirstOrder3D(kgrid, medium, source, sensor, input_args{:});
-end
-
-% combine data to give one trace per physical array element
-time_series_data = karray.combineSensorData(kgrid, time_series_data);
-
-%% Write data to mat array
-save(optical_path, 'time_series_data')%, '-v7.3')
-=======
     point_time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
     point_time_series_data = gather(point_time_series_data);
 else
@@ -271,7 +180,6 @@ end
 
 %% Write data to mat array
 save(optical_path, 'time_series_data');
->>>>>>> try_new_sensor
 time_step = kgrid.dt;
 number_time_steps = kgrid.Nt;
 save(strcat(optical_path, 'dt.mat'), 'time_step', 'number_time_steps');

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# SPDX-FileCopyrightText: 2021 Division of Intelligent Medical Systems, DKFZ
-=======
     # SPDX-FileCopyrightText: 2021 Division of Intelligent Medical Systems, DKFZ
->>>>>>> try_new_sensor
 # SPDX-FileCopyrightText: 2021 Janek Groehl
 # SPDX-License-Identifier: MIT
 
@@ -80,10 +76,6 @@ class KWaveAdapter(AcousticAdapterBase):
 
         """
 
-<<<<<<< HEAD
-        print("HELLOOOOOOOOO")
-=======
->>>>>>> try_new_sensor
         wavelength = self.global_settings[Tags.WAVELENGTH]
         optical_path = generate_dict_path(Tags.OPTICAL_MODEL_OUTPUT_NAME,
                                           wavelength=wavelength)
@@ -195,11 +187,6 @@ class KWaveAdapter(AcousticAdapterBase):
             z_angles = np.arccos(np.dot(orientations, np.array([0, 0, 1]))) * 360 / (2*np.pi)
             intrinsic_euler_angles = list()
             for orientation_vector in orientations:
-<<<<<<< HEAD
-                
-=======
-
->>>>>>> try_new_sensor
                 mat = rotation_matrix_between_vectors(orientation_vector, np.array([0, 0, 1]))
                 rot = Rotation.from_matrix(mat)
                 euler_angles = rot.as_euler("XYZ", degrees=True)
@@ -253,12 +240,6 @@ class KWaveAdapter(AcousticAdapterBase):
         matlab_binary_path = self.component_settings[Tags.ACOUSTIC_MODEL_BINARY_PATH]
         cmd = generate_matlab_cmd(matlab_binary_path, simulation_script_path, optical_path, self.get_additional_flags())
 
-<<<<<<< HEAD
-        cur_dir = os.getcwd()
-        self.logger.info(cmd)
-        subprocess.run(cmd)
-
-=======
         cur_dir = os.getcwd()   
         self.logger.info(cmd)
 
@@ -267,7 +248,6 @@ class KWaveAdapter(AcousticAdapterBase):
         # process = subprocess.Popen(cmd)
         # process.wait()  # wait for Matlab to be closed manually
         
->>>>>>> try_new_sensor
         raw_time_series_data = sio.loadmat(optical_path)[Tags.DATA_FIELD_TIME_SERIES_DATA]
         time_grid = sio.loadmat(optical_path + "dt.mat")
         num_time_steps = int(np.round(time_grid["number_time_steps"]))
@@ -369,8 +349,4 @@ def perform_k_wave_acoustic_forward_simulation(initial_pressure: np.array,
     kWave = KWaveAdapter(settings)
     time_series_data, updated_global_settings = kWave.k_wave_acoustic_forward_model(
         detection_geometry, speed_of_sound, density, alpha_coeff, initial_pressure)
-<<<<<<< HEAD
     return time_series_data
-=======
-    return time_series_data
->>>>>>> try_new_sensor
