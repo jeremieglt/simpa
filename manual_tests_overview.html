@@ -1,0 +1,1210 @@
+<h1 id="overview-of-manual-test-results"><u>Overview of Manual Test
+Results</u></h1>
+<h1 id="contents">Contents</h1>
+<ul>
+<li><a href="#acoustic-forward-models">1. Acoustic forward models</a>
+<ul>
+<li><a href="#kwaveacousticforwardconveniencefunction">1.1
+KWaveAcousticForwardConvenienceFunction</a></li>
+<li><a href="#minimalkwavetest">1.2 MinimalKWaveTest</a></li>
+</ul></li>
+<li><a href="#digital-device-twins">2. Digital device twins</a>
+<ul>
+<li><a href="#simulationwithmsotinvision">2.1
+SimulationWithMSOTInvision</a></li>
+<li><a href="#visualisedevices">2.2 VisualiseDevices</a></li>
+</ul></li>
+<li><a href="#executables">3. Executables</a>
+<ul>
+<li><a href="#matlabadditionalflags">3.1
+MATLABAdditionalFlags</a></li>
+<li><a href="#mcxadditionalflags">3.2 MCXAdditionalFlags</a></li>
+</ul></li>
+<li><a href="#image-reconstruction">4. Image reconstruction</a>
+<ul>
+<li><a href="#delayandsumreconstruction">4.1
+DelayAndSumReconstruction</a></li>
+<li><a href="#delaymultiplyandsumreconstruction">4.2
+DelayMultiplyAndSumReconstruction</a></li>
+<li><a href="#pointsourcereconstruction">4.3
+PointSourceReconstruction</a></li>
+<li><a href="#signeddelaymultiplyandsumreconstruction">4.4
+SignedDelayMultiplyAndSumReconstruction</a></li>
+<li><a href="#timereversalreconstruction">4.5
+TimeReversalReconstruction</a></li>
+</ul></li>
+<li><a href="#optical-forward-models">5. Optical forward models</a>
+<ul>
+<li><a
+href="#absorptionandscatteringwithinifinitesimalslabexperiment">5.1
+AbsorptionAndScatteringWithInifinitesimalSlabExperiment</a></li>
+<li><a href="#absorptionandscatteringwithinhomogenousmedium">5.2
+AbsorptionAndScatteringWithinHomogenousMedium</a></li>
+<li><a href="#comparemcxresultswithdiffusiontheory">5.3
+CompareMCXResultsWithDiffusionTheory</a></li>
+<li><a href="#computediffusereflectance">5.4
+ComputeDiffuseReflectance</a></li>
+</ul></li>
+<li><a href="#processing-components">6. Processing components</a>
+<ul>
+<li><a href="#qpaireconstruction">6.1 QPAIReconstruction</a></li>
+<li><a href="#testlinearunmixingvisual">6.2
+TestLinearUnmixingVisual</a></li>
+</ul></li>
+<li><a href="#test-with-experimental-measurements">7. Test with
+experimental measurements</a>
+<ul>
+<li><a href="#reproducedismeasurements">7.1
+ReproduceDISMeasurements</a></li>
+</ul></li>
+<li><a href="#volume-creation">8. Volume creation</a>
+<ul>
+<li><a href="#segmentationloader">8.1 SegmentationLoader</a></li>
+</ul></li>
+</ul>
+<style>
+img {
+max-width: 100%;
+height: auto;
+}
+h1 {
+    margin-top: 42px;
+}
+.click-zoom-left input[type=checkbox] {
+    display: none
+}
+.click-zoom-left img {
+    /* margin: 100px; */
+    transition: transform 0.25s ease;
+    cursor: zoom-in
+}
+.click-zoom-left input[type=checkbox]:checked~img {
+    transform: translate(50%, 100%) scale(2);
+    cursor: zoom-out
+}
+
+.click-zoom-right input[type=checkbox] {
+    display: none
+}
+.click-zoom-right img {
+    /* margin: 100px; */
+    transition: transform 0.25s ease;
+    cursor: zoom-in
+}
+.click-zoom-right input[type=checkbox]:checked~img {
+    transform: translate(-50%, -100%) scale(2);
+    cursor: zoom-out
+}
+</style>
+<p><b>SIMPA versions:</b><br></p>
+<table>
+<tr>
+<td>
+Reference simpa version:
+</td>
+<td>
+0.1.dev1733+gb783697
+</td>
+</tr>
+<tr>
+<td>
+Your simpa version:
+</td>
+<td>
+1.0.0
+</td>
+</tr>
+</table>
+<h1 id="acoustic-forward-models">1. Acoustic forward models</h1>
+<h2 id="kwaveacousticforwardconveniencefunction">1.1
+KWaveAcousticForwardConvenienceFunction</h2>
+<ul>
+<li><b>Description:</b><br>This class test the convenience function for
+acoustic forward simulation. It first creates a volume and runs an
+optical forward simulation. Then the function is actually tested. Lastly
+the generated time series data is reconstructed to compare whether
+everything worked.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/KWaveAcousticForwardConvenienceFunction\TestKWaveConvenienceFunction.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/KWaveAcousticForwardConvenienceFunction/TestKWaveConvenienceFunction.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="minimalkwavetest">1.2 MinimalKWaveTest</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/MinimalKWaveTest\minimal_kwave_test.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/MinimalKWaveTest/minimal_kwave_test.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="digital-device-twins">2. Digital device twins</h1>
+<h2 id="simulationwithmsotinvision">2.1 SimulationWithMSOTInvision</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/SimulationWithMSOTInvision\InvisionSimulationTest.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/SimulationWithMSOTInvision/InvisionSimulationTest.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="visualisedevices">2.2 VisualiseDevices</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/VisualiseDevices\device_visualisation_MSOT_Acuity.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/VisualiseDevices/device_visualisation_MSOT_Acuity.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/VisualiseDevices\device_visualisation_MSOT_Invision.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/VisualiseDevices/device_visualisation_MSOT_Invision.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/VisualiseDevices\device_visualisation_RSOM_Explorer.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/VisualiseDevices/device_visualisation_RSOM_Explorer.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="executables">3. Executables</h1>
+<h2 id="matlabadditionalflags">3.1 MATLABAdditionalFlags</h2>
+<ul>
+<li><b>Description:</b><br>Tests if using Tags.ADDITIONAL_FLAGS to set
+additional flags for MATLAB works in the KWaveAdapter.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<h2 id="mcxadditionalflags">3.2 MCXAdditionalFlags</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<h1 id="image-reconstruction">4. Image reconstruction</h1>
+<h2 id="delayandsumreconstruction">4.1 DelayAndSumReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>This test runs a simulation creating an
+example volume of geometric shapes and reconstructs it with the Delay
+and Sum algorithm. To verify that the test was successful a user has to
+evaluate the displayed reconstruction.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/DelayAndSumReconstruction\reconstrution_test_DelayAndSumReconstruction.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/DelayAndSumReconstruction/reconstrution_test_DelayAndSumReconstruction.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="delaymultiplyandsumreconstruction">4.2
+DelayMultiplyAndSumReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>This test runs a simulation creating an
+example volume of geometric shapes and reconstructs it with the Delay
+and Sum algorithm. To verify that the test was successful a user has to
+evaluate the displayed reconstruction.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/DelayMultiplyAndSumReconstruction\reconstrution_test_DelayMultiplyAndSumReconstruction.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/DelayMultiplyAndSumReconstruction/reconstrution_test_DelayMultiplyAndSumReconstruction.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="pointsourcereconstruction">4.3 PointSourceReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>TODO</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/PointSourceReconstruction\PointSourceReconstruction_0.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/PointSourceReconstruction/PointSourceReconstruction_0.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/PointSourceReconstruction\PointSourceReconstruction_1.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/PointSourceReconstruction/PointSourceReconstruction_1.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/PointSourceReconstruction\PointSourceReconstruction_2.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/PointSourceReconstruction/PointSourceReconstruction_2.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/PointSourceReconstruction\PointSourceReconstruction_3.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/PointSourceReconstruction/PointSourceReconstruction_3.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/PointSourceReconstruction\PointSourceReconstruction_4.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/PointSourceReconstruction/PointSourceReconstruction_4.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="signeddelaymultiplyandsumreconstruction">4.4
+SignedDelayMultiplyAndSumReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>This test runs a simulation creating an
+example volume of geometric shapes and reconstructs it with the Delay
+and Sum algorithm. To verify that the test was successful a user has to
+evaluate the displayed reconstruction.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/SignedDelayMultiplyAndSumReconstruction\reconstrution_test_SignedDelayMultiplyAndSumReconstruction.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/SignedDelayMultiplyAndSumReconstruction/reconstrution_test_SignedDelayMultiplyAndSumReconstruction.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="timereversalreconstruction">4.5 TimeReversalReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>This test runs a simulation creating an
+example volume of geometric shapes and reconstructs it with the Delay
+and Sum algorithm. To verify that the test was successful a user has to
+evaluate the displayed reconstruction.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/TimeReversalReconstruction\reconstrution_test_TimeReversalReconstruction.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/TimeReversalReconstruction/reconstrution_test_TimeReversalReconstruction.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="optical-forward-models">5. Optical forward models</h1>
+<h2 id="absorptionandscatteringwithinifinitesimalslabexperiment">5.1
+AbsorptionAndScatteringWithInifinitesimalSlabExperiment</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_0.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_0.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_1.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_1.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_2.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_2.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_3.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_3.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_4.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_4.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_5.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_5.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_6.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_6.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_7.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_7.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment\infinitessimal_slab_8.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithInifinitesimalSlabExperiment/infinitessimal_slab_8.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="absorptionandscatteringwithinhomogenousmedium">5.2
+AbsorptionAndScatteringWithinHomogenousMedium</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithinHomogenousMedium\scattering_test_0.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithinHomogenousMedium/scattering_test_0.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithinHomogenousMedium\scattering_test_2.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithinHomogenousMedium/scattering_test_2.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/AbsorptionAndScatteringWithinHomogenousMedium\scattering_test_3.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/AbsorptionAndScatteringWithinHomogenousMedium/scattering_test_3.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="comparemcxresultswithdiffusiontheory">5.3
+CompareMCXResultsWithDiffusionTheory</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/CompareMCXResultsWithDiffusionTheory\diffusion_theory_0.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/CompareMCXResultsWithDiffusionTheory/diffusion_theory_0.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/CompareMCXResultsWithDiffusionTheory\diffusion_theory_1.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/CompareMCXResultsWithDiffusionTheory/diffusion_theory_1.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/CompareMCXResultsWithDiffusionTheory\diffusion_theory_2.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/CompareMCXResultsWithDiffusionTheory/diffusion_theory_2.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/CompareMCXResultsWithDiffusionTheory\diffusion_theory_3.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/CompareMCXResultsWithDiffusionTheory/diffusion_theory_3.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="computediffusereflectance">5.4 ComputeDiffuseReflectance</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ComputeDiffuseReflectance\diffusion_theory_reflectance_0.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ComputeDiffuseReflectance/diffusion_theory_reflectance_0.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ComputeDiffuseReflectance\diffusion_theory_reflectance_1.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ComputeDiffuseReflectance/diffusion_theory_reflectance_1.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ComputeDiffuseReflectance\diffusion_theory_reflectance_2.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ComputeDiffuseReflectance/diffusion_theory_reflectance_2.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ComputeDiffuseReflectance\diffusion_theory_reflectance_3.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ComputeDiffuseReflectance/diffusion_theory_reflectance_3.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="processing-components">6. Processing components</h1>
+<h2 id="qpaireconstruction">6.1 QPAIReconstruction</h2>
+<ul>
+<li><b>Description:</b><br>This class applies the iterative qPAI
+reconstruction algorithm on a simple test volume and</li>
+<li>by visualizing the results - lets the user evaluate if the
+reconstruction is performed correctly. This test reconstruction contains
+a volume creation and an optical simulation.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/QPAIReconstruction\qpai_reconstruction_test.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/QPAIReconstruction/qpai_reconstruction_test.png></label>
+</div></td>
+</tr>
+</table>
+<h2 id="testlinearunmixingvisual">6.2 TestLinearUnmixingVisual</h2>
+<ul>
+<li><b>Description:</b><br>This test is a manual test, so visual
+confirmation is needed.</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/TestLinearUnmixingVisual\linear_unmixing_test.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/TestLinearUnmixingVisual/linear_unmixing_test.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="test-with-experimental-measurements">7. Test with experimental
+measurements</h1>
+<h2 id="reproducedismeasurements">7.1 ReproduceDISMeasurements</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ReproduceDISMeasurements\DIS_measurement_simulation_a.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ReproduceDISMeasurements/DIS_measurement_simulation_a.png></label>
+</div></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/ReproduceDISMeasurements\DIS_measurement_simulation_b.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/ReproduceDISMeasurements/DIS_measurement_simulation_b.png></label>
+</div></td>
+</tr>
+</table>
+<h1 id="volume-creation">8. Volume creation</h1>
+<h2 id="segmentationloader">8.1 SegmentationLoader</h2>
+<ul>
+<li><b>Description:</b><br>None</li>
+<li><b>Comparison of reference and generated image:</b><br></li>
+</ul>
+<table>
+<tr>
+<td>
+Reference
+</td>
+<td>
+Generated
+</td>
+</tr>
+<tr>
+<td>
+<div class="click-zoom-left">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\reference_figures/SegmentationLoader\SegmentationLoaderExample.png></label>
+</div></td>
+<td>
+<div class="click-zoom-right">
+<label>
+<input type="checkbox">
+<img src=C:\Users\jeremie.gillet\Desktop\simpa\simpa_tests\manual_tests\figures/SegmentationLoader/SegmentationLoaderExample.png></label>
+</div></td>
+</tr>
+</table>
+

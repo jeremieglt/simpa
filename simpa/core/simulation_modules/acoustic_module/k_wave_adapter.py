@@ -189,10 +189,8 @@ class KWaveAdapter(AcousticAdapterBase):
             intrinsic_euler_angles = list()
             for orientation_vector in orientations:
                 
-                # mat = rotation_matrix_between_vectors(orientation_vector, np.array([0, 0, 1]))
-                mat = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-                # rot = Rotation.from_matrix(mat)
-                rot = 1
+                mat = rotation_matrix_between_vectors(orientation_vector, np.array([0, 0, 1]))
+                rot = Rotation.from_matrix(mat)
                 euler_angles = rot.as_euler("XYZ", degrees=True)
                 intrinsic_euler_angles.append(euler_angles)
             intrinsic_euler_angles.reverse()
