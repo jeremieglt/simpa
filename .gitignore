@@ -157,3 +157,16 @@ dmypy.json
 # numpy files
 *npy
 /.mailmap
+
+# Data
+data/
+
+#VSCode
+.vscode/
+
+# numpy files
+*npy
+/.mailmap
+
+# Data
+data/

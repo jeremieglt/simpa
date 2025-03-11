@@ -7,7 +7,7 @@ import numpy as np
 
 
 def create_custom_absorber():
-    wavelengths = np.linspace(200, 1500, 100)
+    wavelengths = np.linspace(200, 1500, 100) # we will use custom wavelength range
     absorber = sp.Spectrum(spectrum_name="random absorber",
                            wavelengths=wavelengths,
                            values=np.random.random(

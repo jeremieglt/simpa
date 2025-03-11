@@ -2,17 +2,11 @@
 # SPDX-FileCopyrightText: 2021 Janek Groehl
 # SPDX-License-Identifier: MIT
 
-import simpa
-
-import importlib
-importlib.reload(simpa)
-
 from simpa.core.simulation import simulate
 from simpa.utils import Tags, generate_dict_path
 from simpa.utils.settings import Settings
 from simpa.utils.path_manager import PathManager
 from simpa import KWaveAdapter, DelayAndSumAdapter
-
 from simpa.core.device_digital_twins import *
 from simpa.io_handling import save_hdf5, load_data_field
 import numpy as np
@@ -100,7 +94,6 @@ class MinimalKWaveTest(ManualIntegrationTestClass):
         }
         optical_output_path = generate_dict_path(Tags.OPTICAL_MODEL_OUTPUT_NAME)
         save_hdf5(optical_output, self.settings[Tags.SIMPA_OUTPUT_FILE_PATH], optical_output_path)
-
         KWaveAdapter(self.settings).run(self.pa_device)
 
         DelayAndSumAdapter(self.settings).run(self.pa_device)

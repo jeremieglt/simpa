@@ -85,7 +85,7 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
     general_settings = {
         # These parameters set the general properties of the simulated volume
         Tags.RANDOM_SEED: RANDOM_SEED,
-        Tags.VOLUME_NAME: "CompletePipelineExample_" + str(RANDOM_SEED),
+        Tags.VOLUME_NAME: VOLUME_NAME + str(RANDOM_SEED),
         Tags.SIMULATION_PATH: path_manager.get_hdf5_file_save_path(),
         Tags.SPACING_MM: spacing,
         Tags.DIM_VOLUME_Z_MM: VOLUME_HEIGHT_IN_MM,
@@ -109,13 +109,13 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
         Tags.OPTICAL_MODEL_NUMBER_PHOTONS: 1e7,
         Tags.OPTICAL_MODEL_BINARY_PATH: path_manager.get_mcx_binary_path(),
         Tags.ILLUMINATION_TYPE: Tags.ILLUMINATION_TYPE_MSOT_ACUITY_ECHO,
-        Tags.LASER_PULSE_ENERGY_IN_MILLIJOULE: 50,
+        Tags.LASER_PULSE_ENERGY_IN_MILLIJOULE: [50, 11],
         Tags.MCX_ASSUMED_ANISOTROPY: 0.9,
         Tags.ADDITIONAL_FLAGS: ['--printgpu']  # to print MCX GPU information
     })
 
     settings.set_acoustic_settings({
-        Tags.ACOUSTIC_SIMULATION_3D: False,
+        Tags.ACOUSTIC_SIMULATION_3D: True,
         Tags.ACOUSTIC_MODEL_BINARY_PATH: path_manager.get_matlab_binary_path(),
         Tags.KWAVE_PROPERTY_ALPHA_POWER: 0.00,
         Tags.KWAVE_PROPERTY_SENSOR_RECORD: "p",
@@ -125,7 +125,8 @@ def run_optical_and_acoustic_simulation(spacing: float | int = 0.2, path_manager
         Tags.KWAVE_PROPERTY_PlotPML: False,
         Tags.RECORDMOVIE: False,
         Tags.MOVIENAME: "visualization_log",
-        Tags.ACOUSTIC_LOG_SCALE: True
+        Tags.ACOUSTIC_LOG_SCALE: True,
+        Tags.RECORDMOVIE: True
     })
 
     settings.set_reconstruction_settings({

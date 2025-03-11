@@ -155,6 +155,7 @@ class GenerateOverview():
         directories = os.listdir(self.current_dir)
         directories.sort()
         self.clean_dir(directories)
+        #print(directories)
 
         for dir_num, dir_ in enumerate(directories):
             self.logger.debug(f"Enter dir: {dir_}")
@@ -330,7 +331,7 @@ h1 {
 
         os.system("set -v")
         self.logger._logger.setLevel(logging.CRITICAL)
-        real_stdout = sys.stdout
+        real_stdout = sys.stdout #stdout = standard output
         sys.stdout = open(os.devnull, "w")
         method(**kwargs)
         sys.stdout = real_stdout
@@ -369,7 +370,6 @@ h1 {
             # pypandoc.convert_file(self.md_name + ".md", 'html', outputfile=self.md_name + '.html')
         except Exception as e:
             self.logger.warning("Check installation of needed requirements (pypandoc, pypandoc_binary).")
-
 
 if __name__ == '__main__':
     automatic_manual_tests = GenerateOverview()

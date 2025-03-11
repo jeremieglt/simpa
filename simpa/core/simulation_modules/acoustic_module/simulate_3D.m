@@ -5,6 +5,10 @@
 function [] = simulate_3D(optical_path)
 
 %% In case of an error, make sure the matlab scripts exits anyway
+<<<<<<< HEAD
+=======
+
+>>>>>>> try_new_sensor
 clean_up = onCleanup(@exit);
 
 %% Read settings file
@@ -25,20 +29,34 @@ end
 
 %% Define kWaveGrid
 
+<<<<<<< HEAD
 % add 2 pixel "gel" to reduce Fourier artifact
 GEL_LAYER_HEIGHT = 3;
 
 %source.p0 = padarray(source.p0, [GEL_LAYER_HEIGHT 0], 0, 'pre');
 [Nx, Ny, Nz] = size(source.p0);
+=======
+[Nx, Ny, Nz] = size(source.p0);
+
+>>>>>>> try_new_sensor
 if isfield(settings, 'sample') == true
     if settings.sample == true
         dx = double(settings.voxel_spacing_mm)/(double(settings.upscale_factor) * 1000);
     else
+<<<<<<< HEAD
         dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
     end
 else
     dx = double(settings.voxel_spacing_mm)/1000;    % convert from mm to m
 end
+=======
+        dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
+    end
+else
+    dx = double(settings.voxel_spacing_mm)/1000; % convert from mm to m
+end
+
+>>>>>>> try_new_sensor
 kgrid = kWaveGrid(Nx, dx, Ny, dx, Nz, dx);
 
 %% Define medium
@@ -46,19 +64,28 @@ kgrid = kWaveGrid(Nx, dx, Ny, dx, Nz, dx);
 % if a field of the struct "data" is given which describes the sound speed, the array is loaded and is used as medium.sound_speed
 if isfield(data, 'sos') == true
     medium.sound_speed = data.sos;
+<<<<<<< HEAD
     % add 2 pixel "gel" to reduce Fourier artifact
 %    medium.sound_speed = padarray(medium.sound_speed, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
+=======
+>>>>>>> try_new_sensor
 else
     medium.sound_speed = 1540;
 end
 
 % if a field of the struct "data" is given which describes the attenuation, the array is loaded and is used as medium.alpha_coeff
 if isfield(data, 'alpha_coeff') == true
+<<<<<<< HEAD
  medium.alpha_coeff = data.alpha_coeff;
  % add 2 pixel "gel" to reduce Fourier artifact
 % medium.alpha_coeff = padarray(medium.alpha_coeff, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
 else
  medium.alpha_coeff = 0.01;
+=======
+    medium.alpha_coeff = data.alpha_coeff;
+else
+    medium.alpha_coeff = 0.01;
+>>>>>>> try_new_sensor
 end
 
 medium.alpha_power = double(settings.medium_alpha_power); % b for a * MHz ^ b
@@ -67,8 +94,11 @@ medium.alpha_mode = 'no_dispersion';
 % if a field of the struct "data" is given which describes the density, the array is loaded and is used as medium.density
 if isfield(data, 'density') == true
     medium.density = data.density;
+<<<<<<< HEAD
     % add 2 pixel "gel" to reduce Fourier artifact
 %    medium.density = padarray(medium.density, [GEL_LAYER_HEIGHT 0], 'replicate', 'pre');
+=======
+>>>>>>> try_new_sensor
 else
     medium.density = 1000*ones(Nx, Ny, Nz);
 end
@@ -95,6 +125,7 @@ end
 
 %% Define sensor
 
+<<<<<<< HEAD
 % create empty array
 karray = kWaveArray;
 
@@ -132,6 +163,28 @@ end
 sensor.mask = karray.getArrayBinaryMask(kgrid);
 
 % model sensor frequency response
+=======
+% Definition of the parameters required for the use of our own sensor
+elem_pos = data.sensor_element_positions * 1e-3;
+
+size_sensor_elem_pos = size(elem_pos);
+n_elem = size_sensor_elem_pos(2);
+
+if isfield(settings, 'sensor_radius_mm') == true
+    sensor_radius = double(settings.sensor_radius_mm) * 1e-3;
+else
+    sensor_radius = 40e-3;
+end
+
+center_of_rotation = (elem_pos(:, 128) + elem_pos(:, 129)) / 2 + [sensor_radius, 0, 0]';
+angular_coverage = 128; % [°]
+grid_3D = true;
+
+% Assign binary mask from iThera geometry to the sensor
+[sensor.mask, sensor_value, ~, ~, ~, ~] = ithera_geometry(dx, dx, dx, Ny*dx, Nx, Ny, Nz, n_elem, angular_coverage, center_of_rotation, grid_3D);
+
+% Model sensor frequency response
+>>>>>>> try_new_sensor
 if isfield(settings, 'model_sensor_frequency_response') == true
     if settings.model_sensor_frequency_response == true
         center_freq = double(settings.sensor_center_frequency); % [Hz]
@@ -155,6 +208,7 @@ input_args = {'DataCast', datacast, 'PMLInside', settings.pml_inside, ...
               'Smooth', p0_smoothing};
 
 if settings.gpu == true
+<<<<<<< HEAD
     time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
     time_series_data = gather(time_series_data);
 else
@@ -166,6 +220,58 @@ time_series_data = karray.combineSensorData(kgrid, time_series_data);
 
 %% Write data to mat array
 save(optical_path, 'time_series_data')%, '-v7.3')
+=======
+    point_time_series_data = kspaceFirstOrder3DG(kgrid, medium, source, sensor, input_args{:});
+    point_time_series_data = gather(point_time_series_data);
+else
+    point_time_series_data = kspaceFirstOrder3D(kgrid, medium, source, sensor, input_args{:});
+end
+
+%% Manual calculations on sinograms due to the addition of a handmade sensor
+
+% Number of time samples acquired for each point
+temporal_dim = size(point_time_series_data, 2);
+
+% Finding the indexes of the physical points for each element
+% the found indexs and coords are stored in a cell, because the number of points found per element varies
+sensor_points_idx = cell(n_elem, 1); 
+sensor_points_coord = cell(n_elem, 1);
+
+for sensor_idx = 1:n_elem
+    found_idxs = find(sensor_value == sensor_idx);
+    [x, y, z] = ind2sub(size(sensor_value), find(sensor_value == sensor_idx)); % coord of sensors in SIMPA coords
+    sensor_points_idx{sensor_idx} = found_idxs';
+    sensor_points_coord{sensor_idx} = [x'; y'; z'];
+end
+
+max_length = max(cellfun(@length, sensor_points_idx));
+% filling the array with zeros to have a unique line width
+sensor_points_padded = cellfun(@(x) [x, zeros(1, max_length - length(x))], sensor_points_idx, 'UniformOutput', false); 
+% transforming to matrix for processing
+sensor_points_mat = cell2mat(sensor_points_padded');
+% renumbering the sensors to correspond to time series data
+[~, ~, sensor_points_renum_vec] = unique(sensor_points_mat(:), 'sorted'); 
+% accounting for the artificial numerotation of the 0s in the numerotation
+sensor_points_renum_vec = sensor_points_renum_vec - 1;
+% reshaping and retransforming to a cell
+sensor_points_reshaped = reshape(sensor_points_renum_vec, max_length, n_elem)'; 
+sensor_points_cell = arrayfun(@(i) nonzeros(sensor_points_reshaped(i, :))', (1:n_elem)', 'UniformOutput', false);
+
+% Filling time series data
+time_series_data = zeros(n_elem, temporal_dim);
+
+for sensor_idx = 1:n_elem
+
+    sensor_pts = sensor_points_cell{sensor_idx}';
+    sensor_signals = point_time_series_data(sensor_pts(:, 1), :);
+    % the values for one element are the average values of the points of this element
+    time_series_data(sensor_idx, :) = mean(sensor_signals, 1);
+
+end
+
+%% Write data to mat array
+save(optical_path, 'time_series_data');
+>>>>>>> try_new_sensor
 time_step = kgrid.dt;
 number_time_steps = kgrid.Nt;
 save(strcat(optical_path, 'dt.mat'), 'time_step', 'number_time_steps');

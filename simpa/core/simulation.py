@@ -14,7 +14,7 @@ from .device_digital_twins import DigitalDeviceTwinBase
 import numpy as np
 import os
 import time
-
+import torch
 
 def simulate(simulation_pipeline: list, settings: Settings, digital_device_twin: DigitalDeviceTwinBase):
     """
@@ -89,6 +89,8 @@ def simulate(simulation_pipeline: list, settings: Settings, digital_device_twin:
             np.random.seed(settings[Tags.RANDOM_SEED])
         else:
             np.random.seed(None)
+        
+        torch.manual_seed(settings[Tags.RANDOM_SEED]) # seeding to ensure reproducibility of vessel structures, calculted under torch
 
         settings[Tags.WAVELENGTH] = wavelength
 

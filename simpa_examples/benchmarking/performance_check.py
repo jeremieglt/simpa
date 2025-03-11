@@ -6,7 +6,10 @@ import pathlib
 import os
 from argparse import ArgumentParser
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> try_new_sensor
 def run_benchmarking_tests(spacing=0.4, profile: str = "TIME", savefolder: str = 'default'):
     """
 
